@@ -62,3 +62,11 @@ Usuario:
 
 email: user@example.com
 pass: 123456
+
+
+<b>NUEVOS CAMBIOS</b>
+
+Ejecuta: git pull luego,
+
+php artisan db:seed && php artisan serv
+
