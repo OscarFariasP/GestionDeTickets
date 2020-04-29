@@ -43,7 +43,7 @@ ejecuta:
 
 <b> php artisan migrate && php artisan db:seed && php artisan serv</b>
 
--<b>Compilando ReactJS.</b>
+- <b>Compilando ReactJS.</b>
 Sin cerrar la consola de comandos, abre otra consola de comandos y ejecuta:
 
 <b>npm run dev</b>
