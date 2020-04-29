@@ -70376,11 +70376,14 @@ var AdminComponent = /*#__PURE__*/function (_Component) {
     _this.state = {
       nombre: '',
       tickets: [],
-      ticket_pedido: ''
+      ticket_pedido: '',
+      selectedUser: 0,
+      users: []
     };
     _this.createTicket = _this.createTicket.bind(_assertThisInitialized(_this));
     _this.handleOnChange = _this.handleOnChange.bind(_assertThisInitialized(_this));
     _this.eliminarTicket = _this.eliminarTicket.bind(_assertThisInitialized(_this));
+    _this.handleSelectOnChange = _this.handleSelectOnChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -70403,7 +70406,8 @@ var AdminComponent = /*#__PURE__*/function (_Component) {
                     'Content-Type': 'application/json'
                   },
                   body: JSON.stringify({
-                    ticket_pedido: this.state.ticket_pedido
+                    ticket_pedido: this.state.ticket_pedido,
+                    id_user: this.state.selectedUser
                   })
                 }; //console.log(config)
 
@@ -70504,7 +70508,7 @@ var AdminComponent = /*#__PURE__*/function (_Component) {
     key: "componentDidMount",
     value: function () {
       var _componentDidMount = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var response, data, _response, _data;
+        var response, data, _response, _data, _response2, _data2;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
@@ -70546,22 +70550,46 @@ var AdminComponent = /*#__PURE__*/function (_Component) {
                 _data = _context3.sent;
                 this.setState({
                   tickets: _data
-                });
-                console.log(_data);
-                _context3.next = 27;
+                }); //   console.log(data);
+
+                _context3.next = 26;
                 break;
 
-              case 24:
-                _context3.prev = 24;
+              case 23:
+                _context3.prev = 23;
                 _context3.t1 = _context3["catch"](13);
                 console.log("Error get ticket info", _context3.t1);
 
-              case 27:
+              case 26:
+                _context3.prev = 26;
+                _context3.next = 29;
+                return fetch('http://127.0.0.1:8000/api/fetchAllUsers');
+
+              case 29:
+                _response2 = _context3.sent;
+                _context3.next = 32;
+                return _response2.json();
+
+              case 32:
+                _data2 = _context3.sent;
+                this.setState({
+                  users: _data2
+                }); //console.log(data);
+
+                _context3.next = 39;
+                break;
+
+              case 36:
+                _context3.prev = 36;
+                _context3.t2 = _context3["catch"](26);
+                console.log("Error get all users info", _context3.t2);
+
+              case 39:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, this, [[0, 10], [13, 24]]);
+        }, _callee3, this, [[0, 10], [13, 23], [26, 36]]);
       }));
 
       function componentDidMount() {
@@ -70576,6 +70604,13 @@ var AdminComponent = /*#__PURE__*/function (_Component) {
       this.setState({
         ticket_pedido: event.target.value
       });
+    }
+  }, {
+    key: "handleSelectOnChange",
+    value: function handleSelectOnChange(event) {
+      this.setState({
+        selectedUser: event.target.value
+      }); //console.log(event.target.value);
     }
   }, {
     key: "render",
@@ -70607,7 +70642,24 @@ var AdminComponent = /*#__PURE__*/function (_Component) {
         value: this.state.ticket_pedido,
         onChange: this.handleOnChange,
         name: "ticketName"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        className: "col-form-label text-md-right"
+      }, "Lista Usuarios:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-5"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+        name: "userList",
+        onChange: this.handleSelectOnChange,
+        className: "form-control"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "0"
+      }, "no asignado"), this.state.users && this.state.users.map(function (item) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+          value: item.id,
+          key: item.id
+        }, item.nombre);
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         className: "btn btn-primary",
         onClick: this.createTicket
       }, "Crear")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {

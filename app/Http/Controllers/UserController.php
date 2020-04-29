@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Ticket;
+use App\TipoUser;
 use Auth;
 class UserController extends Controller
 {
@@ -21,6 +22,16 @@ class UserController extends Controller
             'nombre' => $user->nombre,
             'email' =>$user->email
         ]);    
+    }
+    public function fetchAllUsers(){
+
+
+        $rolToList = 'Usuario'; // listar por el tipo de usuario
+        $rol_id = TipoUser::where('nombre',$rolToList)->first()->id;
+        $users = User::where('id_tipouser',$rol_id)->get();
+        $allUsers = $users->toArray();
+        return response()->json($allUsers);
+        //dd();
     }
     public function fetchTickets(){
         $tickets = Ticket::all();
@@ -44,19 +55,30 @@ class UserController extends Controller
             ]);
 
         }
-
         return response()->json($newTickets);    
     }
     public function postTicket()
     {
+        $id_assigned = null;
+        $name = 'no asignado';
+       if (request()->id_user>0)
+       {
+            $id_assigned = request()->id_user;
+            $name = User::find(request()->id_user)->nombre;
+       }
+           
+
+
+
+
        $t = Ticket::create([
-            'id_user'  => null,
+            'id_user'  => $id_assigned,
             'ticket_pedido' => request()->ticket_pedido
         ]);
 
         $ticket = [
             'id' => $t->id,
-            'nombre' => 'no asignado',
+            'nombre' => $name,
             'ticket_pedido' => $t->ticket_pedido,
         ];
     

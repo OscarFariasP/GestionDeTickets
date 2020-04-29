@@ -21,3 +21,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/editarTicket/{id}', 'HomeController@editarTicket');
+
+//Route::get('/test','UserController@fetchAllUsers');

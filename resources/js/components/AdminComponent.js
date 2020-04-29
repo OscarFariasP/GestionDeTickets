@@ -11,6 +11,8 @@ export default class AdminComponent extends Component {
             nombre:'',
             tickets:[],
             ticket_pedido:'',
+            selectedUser:0,
+            users:[],
             
 
 
@@ -18,11 +20,11 @@ export default class AdminComponent extends Component {
         this.createTicket = this.createTicket.bind(this);
         this.handleOnChange = this.handleOnChange.bind(this);
         this.eliminarTicket = this.eliminarTicket.bind(this);
+        this.handleSelectOnChange = this.handleSelectOnChange.bind(this);
     }
     async createTicket(e)
     {
         e.preventDefault();
-        
         // POST TICKET
          try {
                let config = {
@@ -31,15 +33,15 @@ export default class AdminComponent extends Component {
                        'Accept': 'application/json',
                        'Content-Type': 'application/json'
                    },
-                   body:JSON.stringify({ticket_pedido:this.state.ticket_pedido})
+                   body:JSON.stringify({ticket_pedido:this.state.ticket_pedido,
+                                        id_user:this.state.selectedUser })
                }
                //console.log(config)
                 let response = await fetch('http://127.0.0.1:8000/api/postTicket',config)
                 let data = await response.json()
                 this.setState({tickets:this.state.tickets.concat(data)})
         } catch (error) {
-                console.log("ErrorPost",error)
-             
+                console.log("ErrorPost",error)    
         }
     }
 
@@ -71,7 +73,7 @@ export default class AdminComponent extends Component {
 
     async componentDidMount(){
 
-        // GET USER DATA
+        // GET MY USER DATA
         try {
             let response = await fetch('http://127.0.0.1:8000/api/fetchUser')
             let data = await response.json()
@@ -86,11 +88,22 @@ export default class AdminComponent extends Component {
             let response = await fetch('http://127.0.0.1:8000/api/fetchTickets')
             let data = await response.json()
             this.setState({tickets:data})
-            console.log(data);
+         //   console.log(data);
         } catch (error) {
             console.log("Error get ticket info",error)
             
         }
+        // GET ALL USERS
+
+        try {
+            let response = await fetch('http://127.0.0.1:8000/api/fetchAllUsers')
+            let data = await response.json()
+            this.setState({users:data})
+            //console.log(data);
+        } catch (error) {
+            console.log("Error get all users info",error)
+            
+        }        
         
 
     }
@@ -99,6 +112,12 @@ export default class AdminComponent extends Component {
     {
         this.setState({ticket_pedido:event.target.value});
     }
+    handleSelectOnChange(event)
+    {
+        this.setState({selectedUser:event.target.value});
+        //console.log(event.target.value);
+    }
+
 
     render(){
     return (
@@ -114,11 +133,23 @@ export default class AdminComponent extends Component {
                                     <input id="ticketName" type="text" className="form-control"
                                         value={this.state.ticket_pedido}
                                         onChange = {this.handleOnChange}
-                                        name="ticketName"/>                                    
+                                        name="ticketName"/>                                 
+                                </div>                               
+                            </div>     
+                            <div className="form-group row">
+                                <label  className="col-form-label text-md-right">Lista Usuarios:</label>
+                                <div className="col-md-5">
+                                    <select name="userList" onChange={this.handleSelectOnChange} className="form-control">
+                                        <option value="0">no asignado</option>
+                                        {
+                                            this.state.users && this.state.users.map(item=>(
+                                            <option value={item.id} key={item.id} >{item.nombre}</option>
+                                            ))
+                                        }
+                                    </select>                                  
                                 </div>
                                 <button className="btn btn-primary" onClick={this.createTicket} >Crear</button>                        
-                            </div>     
-
+                            </div>  
 
                             <div className="form-group">
                                 <label>Lista de tickets</label>

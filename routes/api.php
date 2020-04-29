@@ -20,6 +20,8 @@ Route::delete('/eliminarTicket','UserController@eliminarTicket');
 Route::post('/getTicket','UserController@getTicket');
 Route::put('/editarTicket', 'UserController@editarTicket');
 Route::put('/adquirirTicket', 'UserController@adquirirTicket');
+Route::get('/fetchAllUsers','UserController@fetchAllUsers');
+
 
 //Route::middleware('auth:api')->put('/adquirirTicket', 'HomeController@adquirirTicket');
 /*

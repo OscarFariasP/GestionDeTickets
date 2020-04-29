@@ -28,6 +28,25 @@ class UserSeeder extends Seeder
             'email' =>'user@example.com',
             'pass' => bcrypt('123456'),
         ]);
+        User::create([
+            'id_tipouser'=>2,
+            'nombre'=>'Maria',
+            'email' =>'user2@example.com',
+            'pass' => bcrypt('123456'),
+        ]);
+        User::create([
+            'id_tipouser'=>2,
+            'nombre'=>'Miguel',
+            'email' =>'user3@example.com',
+            'pass' => bcrypt('123456'),
+        ]);
+        
+        User::create([
+            'id_tipouser'=>2,
+            'nombre'=>'Francys',
+            'email' =>'user4@example.com',
+            'pass' => bcrypt('123456'),
+        ]);
 
         Ticket::create([
             'id_user'  => null,
