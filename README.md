@@ -1,6 +1,6 @@
-Clona este repositorio ejecutando 
+<b>Clona este repositorio ejecutando 
 
-git clone https://github.com/OscarFariasP/GestionDeTickets.git
+git clone https://github.com/OscarFariasP/GestionDeTickets.git</b>
 
 y a continuación sigue los siguientes pasos.
 
