@@ -17,11 +17,17 @@ ejecuta:
 Ubica en la carpeta raíz el archivo sin extensión, env y rellena los siguientes datos, por default son estos.
 
 DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
+
+DB_HOST=127.0.0.
+
 DB_PORT=3306
+
 DB_DATABASE=apptest
+
 DB_USERNAME=testapp
+
 DB_PASSWORD=123456789
+
 
 <b> Nota: Si el archivo env no existe, renombra env.example a env y edita las variables.</b>
 
