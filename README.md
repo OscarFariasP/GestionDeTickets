@@ -68,5 +68,5 @@ pass: 123456
 
 Ejecuta: git pull luego,
 
-php artisan db:seed && php artisan serv
+<b>php artisan db:seed && php artisan serv</b>
 
